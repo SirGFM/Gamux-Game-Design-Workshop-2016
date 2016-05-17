@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Input = UnityEngine.Input;
+using Vector2 = UnityEngine.Vector2;
 
 public class AxisBased : BaseMovement {
 

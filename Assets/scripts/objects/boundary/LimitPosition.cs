@@ -1,48 +1,32 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Mathf = UnityEngine.Mathf;
+using MonoBehaviour = UnityEngine.MonoBehaviour;
+using Vector3 = UnityEngine.Vector3;
 
 public class LimitPosition : MonoBehaviour {
-
-	/** How many pixels equals one unit */
-	protected const float pixelsPerUnit = 32.0f;
-
-	/** Maximum position, after which the game object will be blocked */
-	private Vector2 _maxPosition;
-
-	void Start () {
-		RawImage image;
-		RectTransform gameView;
-
-		gameView = GameObject.Find("Game View").GetComponent<RectTransform>();
-		image = gameView.GetComponentInChildren<RawImage>();
-
-		/* Convert it to camera space (i.e., transpose it to
-		 * [-cam.w/2, cam.w/2], [-cam.h/2, cam.h/2]) */
-		this._maxPosition.x = image.texture.width / pixelsPerUnit;
-		this._maxPosition.y = image.texture.height / pixelsPerUnit;
-		this._maxPosition *= 0.5f;
-	}
 
 	private void doUpdate() {
 		Vector3 delta;
 
-		if (Mathf.Abs(this.transform.position.x) <= this._maxPosition.x &&
-		    	Mathf.Abs(this.transform.position.y) <= this._maxPosition.y) {
+		/* Do nothing if the object is within the valid area */
+		if (Mathf.Abs(this.transform.position.x) <= Global.width &&
+		    	Mathf.Abs(this.transform.position.y) <= Global.height) {
 			return;
 		}
 
 		delta = Vector3.zero;
-		if (this.transform.position.x > this._maxPosition.x) {
-			delta.x = this._maxPosition.x - this.transform.position.x;
+		/* Limit the object horizontally */
+		if (this.transform.position.x > Global.width) {
+			delta.x = Global.width - this.transform.position.x;
 		}
-		else if (this.transform.position.x < -this._maxPosition.x) {
-			delta.x = -this._maxPosition.x - this.transform.position.x;
+		else if (this.transform.position.x < -Global.width) {
+			delta.x = -Global.width - this.transform.position.x;
 		}
-		if (this.transform.position.y > this._maxPosition.y) {
-			delta.y = this._maxPosition.y - this.transform.position.y;
+		/* Limit the object vertically */
+		if (this.transform.position.y > Global.height) {
+			delta.y = Global.height - this.transform.position.y;
 		}
-		else if (this.transform.position.y < -this._maxPosition.y) {
-			delta.y = -this._maxPosition.y - this.transform.position.y;
+		else if (this.transform.position.y < -Global.height) {
+			delta.y = -Global.height - this.transform.position.y;
 		}
 
 		this.transform.Translate(delta);

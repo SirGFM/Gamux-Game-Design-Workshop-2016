@@ -34,6 +34,7 @@ public class PositionCanvasElements : MonoBehaviour {
 		textureCenter = new Vector2(Camera.main.pixelWidth * 0.25f,
 				Camera.main.pixelHeight * 0.5f);
 
+		/* Calculate the zoom factor */
 		zoomx = (Camera.main.pixelWidth * 0.5f) / image.texture.width;
 		zoomy = Camera.main.pixelHeight / image.texture.height;
 		zoom = Mathf.Floor(Mathf.Min(zoomx, zoomy));
@@ -55,9 +56,11 @@ public class PositionCanvasElements : MonoBehaviour {
 		gameView.anchorMax = Vector2.zero;
 		gameView.anchoredPosition = textureCenter;
 
-		/* Calculate the zoom factor */
 		/* Set the image dimensions */
 		gameView.sizeDelta = zoom * (new Vector2(image.texture.width,
 				image.texture.height));
+
+		/* Update the cached values */
+		Global.updateParameters();
 	}
 }
