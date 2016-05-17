@@ -7,10 +7,25 @@ public abstract class BaseMovement : MonoBehaviour {
 	public float speed = 1.0f;
 
 	/** The object's current velocity */
-	[HideInInspector]
-	public Vector2 velocity = Vector2.zero;
+	//[HideInInspector]
+	public Vector2 velocity {
+		/** Set the instantaneous velocity */
+		protected set {
+			this._curVelocity = value;
+		}
+		/** Retrieve the velocity on the previous frame (so it's
+		 * uniformly returned to all objects) */
+		get {
+			return this._cachedVelocity;
+		}
+	}
+	/** The velocity at which the object is moving */
+	private Vector2 _curVelocity = Vector2.zero;
+	/** Cached velocity, updated on Update() to keep the value
+	 * uniform independent of whoever is reading the value */
+	private Vector2 _cachedVelocity = Vector2.zero;
 
-	/** Cached position after movement (updated on Update to
+	/** Cached position after movement (updated on Update() to
 	 * keep it uniform through all objects) */
 	[HideInInspector]
 	public Vector2 position = Vector2.zero;
@@ -26,7 +41,7 @@ public abstract class BaseMovement : MonoBehaviour {
 		this.fixedUpdate();
 
 		/** Integrate the position (using Euler) */
-		translation = new Vector3(velocity.x, velocity.y);
+		translation = new Vector3(this._curVelocity.x, this._curVelocity.y);
 		translation = translation.normalized * this.speed;
 		translation *= Time.fixedDeltaTime;
 		this.transform.Translate(translation);
@@ -34,5 +49,6 @@ public abstract class BaseMovement : MonoBehaviour {
 
 	void Update() {
 		this.position = this.transform.position;
+		this._cachedVelocity = this._curVelocity;
 	}
 }
