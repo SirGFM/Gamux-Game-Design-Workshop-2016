@@ -57,11 +57,7 @@ public class FollowMouse : BaseMovement {
 			targetDirection.y = 0.0f;
 		}
 
-		if (targetDirection != Vector2.zero) {
-			targetDirection.Normalize();
-		}
-
 		/* Set the current velocity */
-		this.velocity = targetDirection * this.speed * Time.fixedDeltaTime;
+		this.velocity = targetDirection;
 	}
 }
