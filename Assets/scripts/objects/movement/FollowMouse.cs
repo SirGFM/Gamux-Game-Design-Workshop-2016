@@ -22,17 +22,16 @@ public class FollowMouse : BaseMovement {
 		/* Simply set the offset as the image's center */
 		this._offset = gameView.anchoredPosition;
 
-		/* Calculate the scaling of the game view (i.e., factor that will transpose
-		 * the mouse position to the range [-w/2,w/2], [-h/2,h/2]) */
-		this._viewNormalizer.x = 1.0f / (gameView.rect.width / image.texture.width);
-		this._viewNormalizer.y = 1.0f / (gameView.rect.width / image.texture.width);
-		/* Normalize that factor (i.e., transpose it to [-1, 1], [-1, 1]) */
-		this._viewNormalizer.x *= 2.0f / image.texture.width;
-		this._viewNormalizer.y *= 2.0f / image.texture.height;
+		/* Convert the position to a normalized space (i.e.,
+		 * transpose it to [-1, 1], [-1, 1]) */
+		this._viewNormalizer.x = 2.0f / image.texture.width;
+		this._viewNormalizer.y = 2.0f / image.texture.height;
 		/* Convert it to camera space (i.e., transpose it to
 		 * [-cam.w/2, cam.w/2], [-cam.h/2, cam.h/2]) */
 		this._viewNormalizer.x *= (image.texture.width / pixelsPerUnit) * 0.5f;
 		this._viewNormalizer.y *= (image.texture.height / pixelsPerUnit) * 0.5f;
+		/* Scale it to the current pixel size */
+		this._viewNormalizer /= gameView.rect.width / image.texture.width;
 	}
 
 	protected override void fixedUpdate () {
