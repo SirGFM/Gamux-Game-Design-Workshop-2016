@@ -493,8 +493,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1374600916}
   - 212: {fileID: 1374600915}
+  - 61: {fileID: 1374600918}
   - 114: {fileID: 1374600917}
-  - 114: {fileID: 1374600918}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -553,17 +553,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   position: {x: 0, y: 0}
---- !u!114 &1374600918
-MonoBehaviour:
+--- !u!61 &1374600918
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1374600914}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde65611d84b8fc47b2f4088f512f7ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: .5, y: .75}
 --- !u!1 &1586795222
 GameObject:
   m_ObjectHideFlags: 0
