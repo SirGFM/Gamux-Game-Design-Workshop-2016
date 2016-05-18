@@ -61,6 +61,7 @@ public class Warp : MonoBehaviour {
 		/** Game object's cached position */
 		Vector3 pos;
 
+		/* Cache the position (beware!, it's a copy, not a reference!) */
 		pos = this.transform.position;
 
 		/* Warp the sprite horizontally */
@@ -78,6 +79,9 @@ public class Warp : MonoBehaviour {
 		else if (pos.y < -Global.height) {
 			this.transform.Translate(0.0f, Global.height * 2.0f, 0.0f);
 		}
+
+		/* Cache the position, again */
+		pos = this.transform.position;
 
 		/* Initially, set the dymmy out of view */
 		dummyClonePos = new Vector3(pos.x, pos.y, -10.0f);
@@ -113,8 +117,9 @@ public class Warp : MonoBehaviour {
 		}
 
 		if (dummyClonePos.z == -10.0f) {
-			/* Hide the hitbox, again */
+			/* Hide the hitbox and disable the dummy */
 			this._extraHitbox.enabled = false;
+			this._dummyClone.SetActive(false);
 		}
 		else {
 			Vector2 offset;
@@ -124,8 +129,9 @@ public class Warp : MonoBehaviour {
 			offset.x = dummyClonePos.x - pos.x;
 			offset.y = dummyClonePos.y - pos.y;
 			this._extraHitbox.offset = offset + this._hitboxOffset;
+			/* Enable the dummy and set its position */
+			this._dummyClone.SetActive(true);
+			this._dummyClone.transform.position = dummyClonePos;
 		}
-
-		this._dummyClone.transform.position = dummyClonePos;
 	}
 }
