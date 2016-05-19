@@ -28,6 +28,14 @@ public class Hitbox : MonoBehaviour {
 		rb.gravityScale = 0.0f;
 	}
 
+	void OnDestroy() {
+		this.onCollide.RemoveAllListeners();
+		this.onGraze.RemoveAllListeners();
+
+		this.onCollide = null;
+		this.onGraze = null;
+	}
+
 	void OnTriggerEnter2D(Collider2D other) {
 		checkCollision(other);
 	}
