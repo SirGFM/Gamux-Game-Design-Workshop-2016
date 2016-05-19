@@ -37,6 +37,15 @@ public class Global {
 	/** Factor that normalizes each axis into game space */
 	static private Vector2 _viewNormalizer;
 
+	/** Recycler of asteroids */
+	static private Recycler _asteroidRecycler;
+	/** Recycler of asteroids (RO) */
+	static public Recycler asteroidRecycler {
+		get {
+			return Global._asteroidRecycler;
+		}
+	}
+
 	/** Update all cached parameters */
 	static public void updateParameters() {
 		RawImage image;
@@ -63,6 +72,9 @@ public class Global {
 		Global._viewNormalizer.y *= Global._height;
 		/* Scale it to the current pixel size */
 		Global._viewNormalizer /= gameView.rect.width / image.texture.width;
+
+		/* Retrieve all recyclers */
+		Global._asteroidRecycler = GameObject.Find("Asteroid Recycler").GetComponent<Recycler>();
 	}
 
 	/**
