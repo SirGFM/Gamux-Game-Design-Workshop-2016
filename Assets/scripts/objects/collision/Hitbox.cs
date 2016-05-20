@@ -2,11 +2,15 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using NonSerializedAttribute = System.NonSerializedAttribute;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 
 public class Hitbox : MonoBehaviour {
+
+	/** Color of the hitbox */
+	public Color color = Color.white;
 
 	/** Radius of the hitbox */
 	public float radius;
@@ -84,8 +88,15 @@ public class Hitbox : MonoBehaviour {
 
 	/* Draw the actual hitbox on the editor */
 	void OnDrawGizmos() {
+		Color original;
+
+		original = UnityEditor.Handles.color;
+		UnityEditor.Handles.color = this.color;
+
 		UnityEditor.Handles.DrawWireDisc(this.transform.position + this.offset,
 				Vector3.back,
 				this.radius);
+
+		UnityEditor.Handles.color = original;
 	}
 }

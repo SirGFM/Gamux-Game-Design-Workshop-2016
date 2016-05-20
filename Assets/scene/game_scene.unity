@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb516bd4a657f14a83eeea545e97c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: .41911763, g: 1, b: .423123688, a: 1}
   radius: .159999996
   offset: {x: 0, y: -.189999998, z: 0}
   onCollide:
