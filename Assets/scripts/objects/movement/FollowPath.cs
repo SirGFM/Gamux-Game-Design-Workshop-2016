@@ -53,9 +53,9 @@ public class PathPointEditor : PropertyDrawer {
 	 * @param  [ in]label The property's label
 	 */
 	override public void OnGUI(Rect pos, SerializedProperty prop, GUIContent label) {
-		Rect rect, newrect;
+		Rect rect;
 		Vector3 pointPos;
-		float pointTime, height;
+		float pointTime;
 		int indent;
 
 		/* Retrieve the property's initial value */
@@ -127,30 +127,17 @@ public class FollowPath : BaseMovement {
 	public PathPoint finalPosition;
 
 	/** First of the 3 points used to lerp */
-	private PathPoint current = null;
+	public PathPoint current = null;
 	/** Point between current and next */
-	private PathPoint intermediate = null;
+	public PathPoint intermediate = null;
 	/** Next destination (one point ahead) */
-	private PathPoint next = null;
+	public PathPoint next = null;
 
 	/** Current time on the lerp */
 	private float t = 0.0f;
 
 	/** Current position within the array */
 	private int i = 0;
-
-	protected Vector3 easySpline() {
-		Vector3 res, v1, v2;
-		float tn;
-
-		//tn = this.t / this.intermediate.time;
-		//v1 = this.intermediate.position * 3.0f * (1.0f - tn) + this.intermediate.position * tn;
-		//v2 = this.next.position * (1.0f - tn) + this.next.position * 3.0f * tn ;
-		//res = (v1 + v2) * 0.5f;
-		res = this.intermediate.position - this.current.position;
-
-		return res;
-	}
 
 	void Awake() {
 		this.current = new PathPoint();
@@ -165,6 +152,21 @@ public class FollowPath : BaseMovement {
 		this.transform.position = this.initialPosition.position;
 	}
 
+	protected Vector3 easySpline() {
+		Vector3 res, v1, v2;
+		float tn;
+
+		/* Retrieve the position within the current section */
+		tn = this.t / this.intermediate.time;
+
+		v1 = this.intermediate.position - this.current.position;
+		v2 = this.next.position - this.intermediate.position;
+		res = v1 * (3.0f - 2.0f * tn) + v2 * (1.0f + 2.0f * tn);
+		res *= 0.25f;
+
+		return res;
+	}
+
 	protected override void fixedUpdate () {
 		Vector3 v;
 
@@ -173,7 +175,7 @@ public class FollowPath : BaseMovement {
 			this.next = this.points[this.i + 1];
 		}
 		else {
-			this.intermediate = null;
+			this.intermediate = this.finalPosition;
 			this.next = this.finalPosition;
 		}
 
@@ -184,7 +186,7 @@ public class FollowPath : BaseMovement {
 		if (this.t >= this.intermediate.time) {
 			this.t -= this.intermediate.time;
 
-			this.current.position = this.transform.position;
+			this.current.position = this.transform.position - this.initialPosition.position;
 			this.current.time = this.next.time;
 
 			this.i++;
