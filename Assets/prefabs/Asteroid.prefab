@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb516bd4a657f14a83eeea545e97c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: .526166379, g: 1, b: .463235319, a: 1}
   radius: .375
   offset: {x: 0, y: 0, z: 0}
   onCollide:
@@ -185,6 +186,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mass
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: color.r
+      value: .526166379
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: color.b
+      value: .463235319
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
