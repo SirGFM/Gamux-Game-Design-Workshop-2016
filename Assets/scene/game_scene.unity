@@ -180,19 +180,28 @@ MonoBehaviour:
   - position: {x: -.689999998, y: -.680000007, z: 0}
     time: 1
   - position: {x: -.879999995, y: -1.62, z: 0}
-    time: 1
+    time: .5
   - position: {x: -.340000004, y: -2.47000003, z: 0}
     time: 1
   - position: {x: .25, y: -3.23000002, z: 0}
-    time: 1
+    time: 2
   - position: {x: .140000001, y: -4.26000023, z: 0}
     time: 1
   - position: {x: -.25, y: -5.30000019, z: 0}
     time: 1
   - position: {x: .100000001, y: -6.19999981, z: 0}
-    time: 1
+    time: 4
   finalPosition:
     position: {x: .879999995, y: -7.55999994, z: 0}
+    time: 1
+  current:
+    position: {x: 0, y: 0, z: 0}
+    time: 1
+  intermediate:
+    position: {x: 0, y: 0, z: 0}
+    time: 1
+  next:
+    position: {x: 0, y: 0, z: 0}
     time: 1
 --- !u!1 &607045522
 GameObject:
@@ -652,7 +661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1374600915
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -150,6 +150,12 @@ public class FollowPath : BaseMovement {
 		this.current.position = Vector3.zero;
 		this.current.time = 0.0f;
 		this.transform.position = this.initialPosition.position;
+		if (this.points.Length > 0) {
+			this.speed = 1 / this.points[0].time;
+		}
+		else {
+			this.speed = 1 / this.finalPosition.time;
+		}
 	}
 
 	protected Vector3 easySpline() {
@@ -174,13 +180,17 @@ public class FollowPath : BaseMovement {
 			this.intermediate = this.points[this.i];
 			this.next = this.points[this.i + 1];
 		}
+		else if (this.i < this.points.Length) {
+			this.intermediate = this.points[this.i];
+			this.next = this.finalPosition;
+		}
 		else {
 			this.intermediate = this.finalPosition;
 			this.next = this.finalPosition;
 		}
 
 		v = this.easySpline();
-		this.velocity = new Vector2(v.x, v.y) / this.intermediate.time;
+		this.velocity = new Vector2(v.x, v.y);
 
 		this.t += Time.fixedDeltaTime;
 		if (this.t >= this.intermediate.time) {
@@ -188,6 +198,7 @@ public class FollowPath : BaseMovement {
 
 			this.current.position = this.transform.position - this.initialPosition.position;
 			this.current.time = this.next.time;
+			this.speed = 1 / this.next.time;
 
 			this.i++;
 		}
