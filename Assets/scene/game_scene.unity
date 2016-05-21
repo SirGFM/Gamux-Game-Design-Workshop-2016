@@ -85,6 +85,93 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &74397186
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 466490, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459390, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: color.r
+      value: .599999964
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459390, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459390, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: color.b
+      value: .5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11435310, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &74397187 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 166290, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+  m_PrefabInternal: {fileID: 74397186}
+--- !u!114 &74397188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 74397187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce0067506b5afc4781004315040aca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  position: {x: 0, y: 0}
+  initialPositionColor: {r: .375, g: 1, b: 1, a: 1}
+  finalPositionColor: {r: 1, g: .301470578, b: .301470578, a: 1}
+  pointColor: {r: .970588207, g: .953460217, b: .349697202, a: 1}
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  initialPosition:
+    position: {x: -1.48000002, y: 2.26999998, z: 0}
+    time: 1
+  points:
+  - position: {x: -1.66999996, y: -1.09000003, z: 0}
+    time: 1
+  - position: {x: -1.63999999, y: -2.6500001, z: 0}
+    time: 1
+  finalPosition:
+    position: {x: -.569999993, y: -4.5, z: 0}
+    time: 1
 --- !u!1 &607045522
 GameObject:
   m_ObjectHideFlags: 0
