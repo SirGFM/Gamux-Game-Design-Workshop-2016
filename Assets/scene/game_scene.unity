@@ -136,6 +136,18 @@ Prefab:
       propertyPath: color.b
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11439094, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459390, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103614, guid: d18664d510715b842ba9b77448be09b8, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11435310, guid: d18664d510715b842ba9b77448be09b8, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d18664d510715b842ba9b77448be09b8, type: 2}
@@ -162,15 +174,15 @@ MonoBehaviour:
   pointColor: {r: .970588207, g: .953460217, b: .349697202, a: 1}
   lineColor: {r: 1, g: 1, b: 1, a: 1}
   initialPosition:
-    position: {x: -1.48000002, y: 2.26999998, z: 0}
+    position: {x: -1.40999997, y: 1.95000005, z: 0}
     time: 1
   points:
-  - position: {x: -1.66999996, y: -1.09000003, z: 0}
+  - position: {x: -.689999998, y: -.439999998, z: 0}
     time: 1
-  - position: {x: -1.63999999, y: -2.6500001, z: 0}
+  - position: {x: -.689999998, y: -1.13999999, z: 0}
     time: 1
   finalPosition:
-    position: {x: -.569999993, y: -4.5, z: 0}
+    position: {x: -.25, y: -1.86000001, z: 0}
     time: 1
 --- !u!1 &607045522
 GameObject:
