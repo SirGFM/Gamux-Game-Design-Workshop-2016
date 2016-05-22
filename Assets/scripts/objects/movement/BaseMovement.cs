@@ -30,8 +30,15 @@ public abstract class BaseMovement : MonoBehaviour {
 	[HideInInspector]
 	public Vector2 position = Vector2.zero;
 
-	/** Overload-able function where movement should be implemented
-	 * by setting the velocity */
+	/** 
+     * Overload-able function where movement should be implemented
+	 * by setting the velocity.
+     *
+     * This had to be done as an abstract function (called by this'
+     * class FixedUpdate event) because otherwise the implementation
+     * on the child class could be faulty (i.e., not on the FixedUpdate
+     * event).
+     */
 	abstract protected void fixedUpdate();
 
 	void FixedUpdate () {
