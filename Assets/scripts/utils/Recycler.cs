@@ -44,7 +44,9 @@ public class Recycler : MonoBehaviour {
 			go = this._recycled.First.Value;
 			this._recycled.RemoveFirst();
 
-			go.SetActive(true);
+			if (go != null) {
+				go.SetActive(true);
+			}
 		}
 
 		return go;
