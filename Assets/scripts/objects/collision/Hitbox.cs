@@ -18,11 +18,18 @@ public class Hitbox : MonoBehaviour {
 	/** Offset of the hitbox from the gameObject's center */
 	public Vector3 offset;
 
-	/** Functions to be called on collision */
-	public UnityEvent onCollide;
+	/** Initial hitpoints */
+	public float maxHealth = 1.0f;
 
-	/** Functions to be called when the objects only graze */
-	public UnityEvent onGraze;
+	/** Current health */
+	private float _health;
+
+	/** Amount of damage delt on collision */
+	public float damage = 1.0f;
+
+	void OnEnable() {
+		this._health = this.maxHealth;
+	}
 
 	void Start() {
 		Rigidbody2D rb;
@@ -32,13 +39,36 @@ public class Hitbox : MonoBehaviour {
 		rb.gravityScale = 0.0f;
 	}
 
-	void OnDestroy() {
-		this.onCollide.RemoveAllListeners();
-		this.onGraze.RemoveAllListeners();
-
-		this.onCollide = null;
-		this.onGraze = null;
+	/**
+	 * Called by the default onHit implementation. By
+	 * default, it simply deactivates this object.
+	 */
+	virtual protected void onDeath() {
+		this.gameObject.SetActive(false);
 	}
+
+	/**
+	 * Called whenever the object is hit by something
+	 *
+	 * The default implementation decreases this objects'
+	 * health by the other's damage and calls onDeath if it
+	 * goes bellow 0 (actually, if it's less or equal to).
+	 *
+	 * @param  [ in]other The offending hitbox
+	 */
+	virtual protected void onHit(Hitbox other) {
+		this._health -= other.damage;
+		if (this._health <= 0) {
+			this.onDeath();
+		}
+	}
+
+	/**
+	 * Called whenever the object touches another one but
+	 * evades its hitbox. The default implementation does
+	 * nothing.
+	 */
+	virtual protected void onGraze(Hitbox other) {}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		checkCollision(other);
@@ -75,14 +105,14 @@ public class Hitbox : MonoBehaviour {
 		sqrRadius = this.radius + otherHb.radius;
 		sqrRadius *= sqrRadius;
 
+		/* Whatever happens, execute only the current object's
+		 * callback, since it will be run once again for the
+		 * other one */
 		if (sqrDist <= sqrRadius) {
-			/* If they did collide, execute only the current object's
-			 * callback, since it will be run once again for the
-			 * other one */
-			try {
-				this.onCollide.Invoke();
-				this.onGraze.Invoke();
-			} catch {}
+			this.onHit(otherHb);
+		}
+		else {
+			this.onGraze(otherHb);
 		}
 	}
 
