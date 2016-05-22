@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public int bulletsPerSecond = 10;
 
 	/** How long until we can shoot again */
-	public float _cooldown = 0.0f;
+	private float _cooldown = 0.0f;
 
 	/** Component used to shooting */
 	private BaseShooter _bullet;
