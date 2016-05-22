@@ -13,7 +13,9 @@ public class ExplodeOnDisable : MonoBehaviour {
 			GameObject go;
 
 			go = Global.explosionRecycler.recycle();
-			go.transform.position = pos;
+			if (go != null) {
+				go.transform.position = pos;
+			}
 		}
 	}
 }
