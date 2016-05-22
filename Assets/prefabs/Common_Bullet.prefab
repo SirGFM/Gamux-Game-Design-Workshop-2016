@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11401124}
   - 114: {fileID: 11485860}
   - 114: {fileID: 11452374}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Common_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,6 +89,8 @@ MonoBehaviour:
   color: {r: .382352948, g: 1, b: .514401615, a: 1}
   radius: .239999995
   offset: {x: 0, y: 0, z: 0}
+  maxHealth: 1
+  damage: 1
   onCollide:
     m_PersistentCalls:
       m_Calls: []
@@ -142,7 +144,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 153652}

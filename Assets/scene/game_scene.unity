@@ -568,7 +568,7 @@ GameObject:
   - 50: {fileID: 1374600920}
   - 114: {fileID: 1374600921}
   - 114: {fileID: 1374600922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,6 +653,8 @@ MonoBehaviour:
   color: {r: .41911763, g: 1, b: .423123688, a: 1}
   radius: .159999996
   offset: {x: 0, y: -.189999998, z: 0}
+  maxHealth: 1
+  damage: 1
   onCollide:
     m_PersistentCalls:
       m_Calls: []
