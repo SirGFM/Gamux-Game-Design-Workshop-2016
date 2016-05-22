@@ -64,6 +64,9 @@ public class Global {
 		}
 	}
 
+	/** Score controller reference */
+	static public ScoreController score;
+
 	/** Update all cached parameters */
 	static public void updateParameters() {
 		RawImage image;
@@ -95,6 +98,8 @@ public class Global {
 		Global._asteroidRecycler = GameObject.Find("Asteroid Recycler").GetComponent<Recycler>();
 		Global._explosionRecycler = GameObject.Find("Explosion Recycler").GetComponent<Recycler>();
 		Global._planetRecycler = GameObject.Find("Planet Recycler").GetComponent<Recycler>();
+
+		Global.score = GameObject.Find ("Game Scene").GetComponent<ScoreController>();
 	}
 
 	/**
