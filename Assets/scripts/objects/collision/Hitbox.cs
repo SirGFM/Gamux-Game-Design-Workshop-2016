@@ -94,8 +94,7 @@ public class Hitbox : MonoBehaviour {
 		UnityEditor.Handles.color = this.color;
 
 		UnityEditor.Handles.DrawWireDisc(this.transform.position + this.offset,
-				Vector3.back,
-				this.radius);
+				Vector3.back, this.radius);
 
 		UnityEditor.Handles.color = original;
 	}
