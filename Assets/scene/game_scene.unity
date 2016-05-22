@@ -951,6 +951,7 @@ GameObject:
   - 114: {fileID: 1374600921}
   - 114: {fileID: 1374600922}
   - 114: {fileID: 1374600923}
+  - 114: {fileID: 1374600924}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -982,7 +983,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1506522343
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9eed20dd244c56844a823b78d982bd04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c613bb8cdb23874f9bfae1b0e12c527, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1374600916
 Transform:
@@ -1092,6 +1093,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e31ba95b4694e2f44adf1c5ccd05bd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1374600924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374600914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde65611d84b8fc47b2f4088f512f7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1586795222
