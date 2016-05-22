@@ -7,7 +7,9 @@ public class ExplodeOnDisable : MonoBehaviour {
 		Vector3 pos;
 
 		pos = this.transform.position;
-		if (Mathf.Abs(pos.x) < Global.width && Mathf.Abs(pos.y) < Global.height) {
+		if (Global.explosionRecycler != null &&
+				Mathf.Abs(pos.x) < Global.width &&
+				Mathf.Abs(pos.y) < Global.height) {
 			GameObject go;
 
 			go = Global.explosionRecycler.recycle();
