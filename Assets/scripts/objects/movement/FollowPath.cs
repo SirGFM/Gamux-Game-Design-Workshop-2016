@@ -263,6 +263,12 @@ public class FollowPath : BaseMovement {
 		Vector3 lastPos, nextPos;
 		int i;
 
+		if (this.initialPosition == null) {
+			/* This happens as soon as you add this component to a
+			 * gameObject because of reasons */
+			return;
+		}
+
 		original = UnityEditor.Handles.color;
 
 		/* Draw the path */
