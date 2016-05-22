@@ -609,6 +609,7 @@ GameObject:
   - 50: {fileID: 1374600920}
   - 114: {fileID: 1374600921}
   - 114: {fileID: 1374600922}
+  - 114: {fileID: 1374600923}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -741,6 +742,17 @@ MonoBehaviour:
   count: 1
   recycler: {fileID: 1808237384}
   angleRange: 60
+--- !u!114 &1374600923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374600914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31ba95b4694e2f44adf1c5ccd05bd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1586795222
 GameObject:
   m_ObjectHideFlags: 0
