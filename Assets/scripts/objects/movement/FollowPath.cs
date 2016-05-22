@@ -18,17 +18,22 @@ public class PathPoint {
 		 * point to this one */
 	public float time = 1.0f;
 
-	/** Draw the point in global coordinates */
-	public void draw() {
-		this.draw(null);
+	/**
+	 * Draw the point in global coordinates
+	 *
+	 * @param  [ in]label A label used to indentify the point
+	 */
+	public void draw(string label) {
+		this.draw(null, label);
 	}
 
 	/**
 	 * Draw the point in "local coordinates"
 	 *
 	 * @param  [ in]initialPos The point's origin
+	 * @param  [ in]label      A label used to indentify the point
 	 */
-	public void draw(PathPoint initialPos) {
+	public void draw(PathPoint initialPos, string label) {
 		Vector3 pos;
 
 		pos = this.position;
@@ -40,6 +45,8 @@ public class PathPoint {
 				Vector3.forward, PathPoint.pointRadius);
 		UnityEditor.Handles.Label(pos + Vector3.right,
 				"Time: " + this.time.ToString("F2"));
+		UnityEditor.Handles.Label(pos + Vector3.right + Vector3.up * 0.2f,
+				label);
 	}
 }
 
@@ -127,28 +134,56 @@ public class FollowPath : BaseMovement {
 	public PathPoint finalPosition;
 
 	/** First of the 3 points used to lerp */
-	public PathPoint current = null;
+	private PathPoint _current = null;
 	/** Point between current and next */
-	public PathPoint intermediate = null;
+	private PathPoint _intermediate = null;
 	/** Next destination (one point ahead) */
-	public PathPoint next = null;
+	private PathPoint _next = null;
 
 	/** Current time on the lerp */
-	private float t = 0.0f;
+	private float _time = 0.0f;
 
 	/** Current position within the array */
-	private int i = 0;
+	private int _index = 0;
 
+	/** Called as soon as the gameObject is instantiated. Used to
+	 * be sure '_current' is set and alloc'ed only once */
 	void Awake() {
-		this.current = new PathPoint();
+		this._current = new PathPoint();
 	}
 
-	void OnEnable() {
-		this.i = 0;
-		this.t = 0.0f;
+	/** Called when this is to be dealloc'ed. Releases all
+	 * references and stuff */
+	void OnDestroy() {
+		int i;
 
-		this.current.position = Vector3.zero;
-		this.current.time = 0.0f;
+		this.initialPosition = null;
+		this.finalPosition = null;
+
+		i = 0;
+		while (i < this.points.Length) {
+			this.points[i] = null;
+			i++;
+		}
+
+		this.points = null;
+
+		this._current = null;
+		this._intermediate = null;
+		this._next = null;
+	}
+
+	/** Called whenever the gameObject is (re-)enabled, so
+	 * everything is properly initialized */
+	void OnEnable() {
+		this._index = 0;
+		this._time = 0.0f;
+
+		/* Current position is set to zero because the initial
+		 * point (i.e., either point[0] or finalPosition) will
+		 * be the offset from the initialPosition (i.e., the
+		 * origin) */
+		this._current.position = Vector3.zero;
 		this.transform.position = this.initialPosition.position;
 		if (this.points.Length > 0) {
 			this.speed = 1 / this.points[0].time;
@@ -156,17 +191,43 @@ public class FollowPath : BaseMovement {
 		else {
 			this.speed = 1 / this.finalPosition.time;
 		}
+
+		this.getNextPoints();
 	}
 
-	protected Vector3 easySpline() {
+	/** Sets the two following points to be targeted */
+	private void getNextPoints() {
+		if (this._index < this.points.Length - 1) {
+			this._intermediate = this.points[this._index];
+			this._next = this.points[this._index + 1];
+		}
+		else if (this._index < this.points.Length) {
+			this._intermediate = this.points[this._index];
+			this._next = this.finalPosition;
+		}
+		else {
+			this._intermediate = this.finalPosition;
+			this._next = this.finalPosition;
+		}
+	}
+
+	/** Interpolate between this point and the next two ones */
+	private Vector3 easySpline() {
 		Vector3 res, v1, v2;
 		float tn;
 
 		/* Retrieve the position within the current section */
-		tn = this.t / this.intermediate.time;
+		tn = this._time / this._intermediate.time;
 
-		v1 = this.intermediate.position - this.current.position;
-		v2 = this.next.position - this.intermediate.position;
+		/* Calculate the two vectors from the current node to the next
+		 * and from the next to the one following it */
+		v1 = this._intermediate.position - this._current.position;
+		v2 = this._next.position - this._intermediate.position;
+
+		/* Interpolate between both points so it starts targeting v1
+		 * (at tn == 0), moves somewhat between both (at tn == 0.5)
+		 * and targets v2 (at tn == 1.0). This is done so the movement
+		 * is smoothed between sections */
 		res = v1 * (3.0f - 2.0f * tn) + v2 * (1.0f + 2.0f * tn);
 		res *= 0.25f;
 
@@ -176,31 +237,23 @@ public class FollowPath : BaseMovement {
 	protected override void fixedUpdate () {
 		Vector3 v;
 
-		if (this.i < this.points.Length - 1) {
-			this.intermediate = this.points[this.i];
-			this.next = this.points[this.i + 1];
-		}
-		else if (this.i < this.points.Length) {
-			this.intermediate = this.points[this.i];
-			this.next = this.finalPosition;
-		}
-		else {
-			this.intermediate = this.finalPosition;
-			this.next = this.finalPosition;
-		}
-
+		/* Get the interpolated velocity vector */
 		v = this.easySpline();
 		this.velocity = new Vector2(v.x, v.y);
 
-		this.t += Time.fixedDeltaTime;
-		if (this.t >= this.intermediate.time) {
-			this.t -= this.intermediate.time;
+		/* Check if we reached the current target and move to the next one */
+		this._time += Time.fixedDeltaTime;
+		if (this._time >= this._intermediate.time) {
+			this._time -= this._intermediate.time;
 
-			this.current.position = this.transform.position - this.initialPosition.position;
-			this.current.time = this.next.time;
-			this.speed = 1 / this.next.time;
+			/* Update the current position so the component
+			 * accounts for error */
+			this._current.position = this.transform.position;
+			this._current.position -= this.initialPosition.position;
+			this.speed = 1 / this._next.time;
 
-			this.i++;
+			this._index++;
+			this.getNextPoints();
 		}
 	}
 
@@ -208,6 +261,7 @@ public class FollowPath : BaseMovement {
 	void OnDrawGizmos() {
 		Color original;
 		Vector3 lastPos, nextPos;
+		int i;
 
 		original = UnityEditor.Handles.color;
 
@@ -225,15 +279,17 @@ public class FollowPath : BaseMovement {
 
 		/* Draw all the points */
 		UnityEditor.Handles.color = this.initialPositionColor;
-		this.initialPosition.draw();
+		this.initialPosition.draw("initial");
 
 		UnityEditor.Handles.color = this.pointColor;
+		i = 0;
 		foreach (PathPoint p in this.points) {
-			p.draw(this.initialPosition);
+			p.draw(this.initialPosition, "Point " + i.ToString());
+			i++;
 		}
 
 		UnityEditor.Handles.color = this.finalPositionColor;
-		this.finalPosition.draw(this.initialPosition);
+		this.finalPosition.draw(this.initialPosition, "final");
 
 		UnityEditor.Handles.color = original;
 	}
