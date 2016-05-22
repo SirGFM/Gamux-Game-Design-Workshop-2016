@@ -46,6 +46,15 @@ public class Global {
 		}
 	}
 
+	/** Recycler of explosions */
+	static private Recycler _explosionRecycler;
+	/** Recycler of explosions (RO) */
+	static public Recycler explosionRecycler {
+		get {
+			return Global._explosionRecycler;
+		}
+	}
+
 	/** Update all cached parameters */
 	static public void updateParameters() {
 		RawImage image;
@@ -75,6 +84,7 @@ public class Global {
 
 		/* Retrieve all recyclers */
 		Global._asteroidRecycler = GameObject.Find("Asteroid Recycler").GetComponent<Recycler>();
+		Global._explosionRecycler = GameObject.Find("Explosion Recycler").GetComponent<Recycler>();
 	}
 
 	/**

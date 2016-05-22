@@ -85,6 +85,46 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &236844991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 236844993}
+  - 114: {fileID: 236844992}
+  m_Layer: 0
+  m_Name: Explosion Recycler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &236844992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 236844991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a3d9f86b747344b9d8de7e83c5c22b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 185080, guid: f98cc509bcf344646b1ffc48001a0ced, type: 2}
+--- !u!4 &236844993
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 236844991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 691114835}
+  m_RootOrder: 2
 --- !u!1 &607045522
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +277,7 @@ Transform:
   m_Children:
   - {fileID: 955419597}
   - {fileID: 1808237383}
+  - {fileID: 236844993}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1 &768594811
@@ -655,16 +696,6 @@ MonoBehaviour:
   offset: {x: 0, y: -.189999998, z: 0}
   maxHealth: 1
   damage: 1
-  onCollide:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onGraze:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!50 &1374600920
 Rigidbody2D:
   serializedVersion: 2
