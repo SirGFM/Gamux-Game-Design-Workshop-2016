@@ -23,7 +23,16 @@ public class BasicShooter : BaseShooter {
 			ConstantMovement constMove;
 
 			go = this.recycler.recycle();
-			go.transform.position = this.offset + this.transform.position;
+			if (this.move != null) {
+				Vector3 pos;
+
+				pos = new Vector3(this.move.position.x, this.move.position.y);
+
+				go.transform.position = this.offset + pos;
+			}
+			else {
+				go.transform.position = this.offset + this.transform.position;
+			}
 
 			constMove = go.GetComponent<ConstantMovement>();
 

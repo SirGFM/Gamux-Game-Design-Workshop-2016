@@ -64,8 +64,32 @@ public class Global {
 		}
 	}
 
+	/** The player */
+	static private BaseMovement _player;
+	/** The player (RO) */
+	static public BaseMovement player {
+		get {
+			return Global._player;
+		}
+	}
+
+	/** The player */
+	static private Hitbox _playerHitbox;
+	/** The player (RO) */
+	static public Hitbox playerHitbox {
+		get {
+			return Global._playerHitbox;
+		}
+	}
+
 	/** Score controller reference */
-	static public ScoreController score;
+	static private ScoreController _score;
+	/** Score controller reference (RO) */
+	static public ScoreController score {
+		get {
+			return Global._score;
+		}
+	}
 
 	/** Update all cached parameters */
 	static public void updateParameters() {
@@ -99,7 +123,10 @@ public class Global {
 		Global._explosionRecycler = GameObject.Find("Explosion Recycler").GetComponent<Recycler>();
 		Global._planetRecycler = GameObject.Find("Planet Recycler").GetComponent<Recycler>();
 
-		Global.score = GameObject.Find ("Game Scene").GetComponent<ScoreController>();
+		Global._score = GameObject.Find("Game Scene").GetComponent<ScoreController>();
+
+		Global._player = GameObject.Find("Player").GetComponent<BaseMovement>();
+		Global._playerHitbox = GameObject.Find("Player").GetComponent<Hitbox>();
 	}
 
 	/**

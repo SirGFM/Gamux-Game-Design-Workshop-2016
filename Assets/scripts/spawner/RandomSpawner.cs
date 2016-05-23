@@ -1,11 +1,10 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using System.Collections;
 
-public class RandomSpawner : MonoBehaviour {
-
-	/** Recycler that spawns objects */
-	public Recycler recycler;
+public class RandomSpawner : BaseSpawner {
 
 	/** Color of the spawner */
 	public Color spawnColor = Color.white;
@@ -19,53 +18,34 @@ public class RandomSpawner : MonoBehaviour {
 	/** Variance on the angle */
 	public float randomAngle = 0.0f;
 
-	/** Minimum time between spawns */
-	public float minSpawnTime = 2.0f;
-
-	/** Variance on the spawn time */
-	public float randomTime = 1.0f;
-
 	/** Minimum speed at which objects move */
 	public float minSpeed = 1.5f;
 
 	/** Variance on the speed */
 	public float randomSpeed = 0.5f;
 
-	/** How long to wait until the next spawn */
-	private float _cooldown = 0.0f;
+	override protected void spawn (GameObject go) {
+		SpriteRenderer spr;
+		ConstantMovement move;
+		Vector3 pos;
 
-	void Start() {
-		this._cooldown = this.minSpawnTime;
-	}
-
-	void Update() {
-		this._cooldown -= Time.deltaTime;
-		if (this._cooldown <= 0.0f) {
-			GameObject go;
-			SpriteRenderer spr;
-			ConstantMovement move;
-			Vector3 pos;
-
-			go = this.recycler.recycle();
-			pos.x = this.spawnArea.x + Random.Range(0.0f, this.spawnArea.width);
-			pos.y = this.spawnArea.y + Random.Range(0.0f, this.spawnArea.height);
-			pos.z = 0.0f;
-			go.transform.position = pos;
-
-			move = go.GetComponent<ConstantMovement>();
-			if (move != null) {
-				move.angle = this.minAngle + Random.Range(0.0f, this.randomAngle);
-				move.speed = this.minSpeed + Random.Range(0.0f, this.randomSpeed);
-			}
-			spr = go.GetComponent<SpriteRenderer>();
-			if (spr != null) {
-				/* TODO Set the color */
-			}
-
-			this._cooldown += this.minSpawnTime + Random.Range(0.0f, this.randomTime);
+		pos.x = this.spawnArea.x + Random.Range(0.0f, this.spawnArea.width);
+		pos.y = this.spawnArea.y + Random.Range(0.0f, this.spawnArea.height);
+		pos.z = 0.0f;
+		go.transform.position = pos;
+		
+		move = go.GetComponent<ConstantMovement>();
+		if (move != null) {
+			move.angle = this.minAngle + Random.Range(0.0f, this.randomAngle);
+			move.speed = this.minSpeed + Random.Range(0.0f, this.randomSpeed);
+		}
+		spr = go.GetComponent<SpriteRenderer>();
+		if (spr != null) {
+			/* TODO Set the color */
 		}
 	}
 
+#if UNITY_EDITOR
 	/* Draw the actual hitbox on the editor */
 	void OnDrawGizmos() {
 		Vector3 []points;
@@ -90,4 +70,5 @@ public class RandomSpawner : MonoBehaviour {
 
 		UnityEditor.Handles.color = original;
 	}
+#endif
 }

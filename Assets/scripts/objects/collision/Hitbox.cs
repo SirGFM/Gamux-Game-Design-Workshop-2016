@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
@@ -33,7 +35,11 @@ public class Hitbox : MonoBehaviour {
 
 	void Start() {
 		Rigidbody2D rb;
-		
+		Collider2D col;
+
+		col = this.GetComponent<Collider2D>();
+		col.isTrigger = true;
+
 		rb = this.GetComponent<Rigidbody2D>();
 		rb.isKinematic = true;
 		rb.gravityScale = 0.0f;
@@ -116,6 +122,7 @@ public class Hitbox : MonoBehaviour {
 		}
 	}
 
+#if UNITY_EDITOR
 	/* Draw the actual hitbox on the editor */
 	void OnDrawGizmos() {
 		Color original;
@@ -128,4 +135,5 @@ public class Hitbox : MonoBehaviour {
 
 		UnityEditor.Handles.color = original;
 	}
+#endif
 }

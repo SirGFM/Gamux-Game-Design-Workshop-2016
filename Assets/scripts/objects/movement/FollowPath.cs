@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using System.Collections;
 
@@ -18,6 +20,7 @@ public class PathPoint {
 		 * point to this one */
 	public float time = 1.0f;
 
+#if UNITY_EDITOR
 	/**
 	 * Draw the point in global coordinates
 	 *
@@ -48,8 +51,10 @@ public class PathPoint {
 		UnityEditor.Handles.Label(pos + Vector3.right + Vector3.up * 0.2f,
 				label);
 	}
+#endif
 }
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(PathPoint))]
 public class PathPointEditor : PropertyDrawer {
 	/**
@@ -109,6 +114,7 @@ public class PathPointEditor : PropertyDrawer {
 		EditorGUI.EndProperty();
 	}
 }
+#endif
 
 public class FollowPath : BaseMovement {
 
@@ -257,6 +263,7 @@ public class FollowPath : BaseMovement {
 		}
 	}
 
+#if UNITY_EDITOR
 	/* Draw the path and the points on the editor */
 	void OnDrawGizmos() {
 		Color original;
@@ -299,4 +306,5 @@ public class FollowPath : BaseMovement {
 
 		UnityEditor.Handles.color = original;
 	}
+#endif
 }

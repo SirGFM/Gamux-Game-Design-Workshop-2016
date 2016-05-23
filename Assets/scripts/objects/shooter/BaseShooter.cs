@@ -1,7 +1,9 @@
 ﻿using Color = UnityEngine.Color;
 using MonoBehaviour = UnityEngine.MonoBehaviour;
 using Vector3 = UnityEngine.Vector3;
+#if UNITY_EDITOR
 using Handles = UnityEditor.Handles;
+#endif
 
 public abstract class BaseShooter : MonoBehaviour {
 
@@ -24,6 +26,9 @@ public abstract class BaseShooter : MonoBehaviour {
 	 * bullets toward the forward angle */
 	public float angleRange = 60.0f;
 
+	/** The movement component */
+	protected BaseMovement move;
+
 	/**
 	 * Override this function to implement the component's
 	 * shooting behaviour. It then should be called by the
@@ -34,6 +39,11 @@ public abstract class BaseShooter : MonoBehaviour {
 	 */
 	public abstract void shoot(float angle);
 
+	void Start() {
+		this.move = this.GetComponent<BaseMovement>();
+	}
+
+#if UNITY_EDITOR
 	/* Draw the actual hitbox on the editor */
 	void OnDrawGizmos() {
 		Color original;
@@ -46,4 +56,5 @@ public abstract class BaseShooter : MonoBehaviour {
 
 		Handles.color = original;
 	}
+#endif
 }
